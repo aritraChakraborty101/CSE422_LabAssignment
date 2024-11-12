@@ -33,7 +33,7 @@ while True:
 
 
 
-def a_star_search(start, goal):
+def a_star_search(start, goal, graph):
     fringe = PriorityQueue()
     fringe.put((0, start)) 
     parent = {}
@@ -57,7 +57,7 @@ def a_star_search(start, goal):
 
 
 
-path, cost = a_star_search('Arad', 'Bucharest')
+path, cost = a_star_search('Arad', 'Bucharest', graph)
 result = "The path is "
 for node in path:
     result += node + " -> "
