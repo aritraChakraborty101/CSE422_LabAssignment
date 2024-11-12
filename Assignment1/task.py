@@ -10,10 +10,10 @@ def create_neighbours(neighbours):
         main_neighbours.append((neighbours[neighbour], int(neighbours[neighbour + 1])))
     return main_neighbours
 
-def optimal_path(parent, current, g_costs):
+def optimal_path(parent, current, g_costs, start):
     path = []
     path.append(current)
-    while current in parent:
+    while current is not start:
         current = parent[current]
         path.append(current)
     path.reverse()
@@ -43,7 +43,7 @@ def a_star_search(start, goal, graph):
     while not fringe.empty():
         cost, current = fringe.get()
         if current == goal:
-            return optimal_path(parent, current, visited)
+            return optimal_path(parent, current, visited, start)
         if current in graph: 
             for neighbor, distance in graph[current]:
                 g_n = visited[current] + distance
@@ -58,11 +58,16 @@ def a_star_search(start, goal, graph):
 
 
 path, cost = a_star_search('Arad', 'Bucharest', graph)
-result = "The path is "
-for node in path:
-    result += node + " -> "
-    
-print(result[0:-4])
-print("The cost is:", cost)
 
-inp.close()
+if path is None:
+    print("No path found")
+    inp.close()
+else:
+    result = "The path is "
+    for node in path:
+        result += node + " -> "
+        
+    print(result[0:-4])
+    print("The cost is:", cost)
+
+    inp.close()
